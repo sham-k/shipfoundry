@@ -9,7 +9,10 @@ export async function POST(req: Request) {
     const files = await generateFiles(blueprint);
     const zip = await zipFiles(files);
 
-    return new NextResponse(zip, {
+    // Convert Uint8Array to Blob for NextResponse compatibility
+    const blob = new Blob([zip as BlobPart], { type: "application/zip" });
+
+    return new NextResponse(blob, {
       headers: {
         "Content-Type": "application/zip",
         "Content-Disposition": "attachment; filename=shipfoundry_app.zip",

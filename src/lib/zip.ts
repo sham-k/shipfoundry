@@ -7,5 +7,5 @@ export async function zipFiles(filesMap: Record<string, string>) {
     zip.file(path, filesMap[path]);
   }
 
-  return await zip.generateAsync({ type: "nodebuffer" });
+  return await zip.generateAsync({ type: "uint8array" });
 }
